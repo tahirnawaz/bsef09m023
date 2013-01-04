@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html> 
+ 
+<html lang="en"> 
+    <head> 
+        <meta charset="utf-8" /> 
+        <title>Layout Page Example</title> 
+        
+        <link rel="stylesheet" type="text/css" href="/Shared/CSS/style.css" />
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+      <!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="/Shared/CSS/iecss.css" />
+<![endif]-->
+       <script type="text/javascript" src="/Shared/JS/boxOver.js"></script>
+ <script type="text/javascript" src="/Shared/JS/jquery.js"></script>
+    </head> 
+    <body> 
+       
+        @RenderPage("/Shared/layouts/_Header.cshtml") 
+           
+          
+  
+      
+            <div id="main"> 
+            @RenderBody() 
+        </div> 
+        <div id="right">
+         @RenderPage("/Shared/layouts/_Right.cshtml") 
+         </div>
+        <div id="footer">
+        @RenderPage("/Shared/layouts/_Footer.cshtml") 
+  </div>
+              </body> 
+</html>

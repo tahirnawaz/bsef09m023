@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>E-Lectronix - @Page.Title</title>
+
+<link href="@Href("~/Shared/CSS/AdminStyle.css")" rel="stylesheet" />
+@RenderSection("head", required: false)
+</head>
+<body>
+<div id="page">
+<div id="header">
+<p class="logo"><a href="@Href("~/")">E-Lectronix</a></p>
+<div id="headerRight">
+<div id="accountSummary">@MembershipHelpers.AccountSummary()</div>
+</div>
+</div>
+<div id="content">
+<div id="adminMenu">
+@RenderPage("~/Shared/Partials/_AdminMenu.cshtml")
+</div>
+<div id="main">
+@RenderBody()
+</div>
+</div>
+<div id="footer">
+&copy;@DateTime.Now.Year E-lectronix. All rights reserved.
+</div>
+</div>
+</body>
+</html>

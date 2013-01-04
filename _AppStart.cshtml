@@ -1,0 +1,35 @@
+﻿@{ 
+WebSecurity.InitializeDatabaseConnection("ProductDataBase",
+"UserProfile", "UserId", "Email", true);
+
+
+@*this code will check for data base if not created it will create *@
+WebMail.SmtpServer = "smtp.mandrillapp.com";
+WebMail.SmtpPort = 587;
+WebMail.EnableSsl = false;
+WebMail.UserName = "bsef09m023@pucit.edu.pk";
+WebMail.From = "bsef09m023@pucit.edu.pk";
+WebMail.Password = "1fbcf567-ea33-4bc3-b715-1e4dcc4fa89a";
+Facebook.Initialize("451332124925494", "98d71ba8885ea6cb3fa6a44aed34ed0b");
+
+
+@*this code will use paypal api 
+ PayPal.Profile.Initialize( "{yourAPIUsername}", "{yourAPIPassword}", "{yourSignature}", "sandbox"); 
+   // General Adaptive Payments’ properties
+    PayPal.Profile.Language = "en_US"; 
+    PayPal.Profile.CancelUrl = "http://www.mystore.com/ohtoobad.cshtml"; 
+    PayPal.Profile.ReturnUrl = "http://www.mystore.com/thanks.cshtml"; 
+    PayPal.Profile.IpnUrl = "http://www.mystore.com/notifications.cshtml"; 
+    PayPal.Profile.CurrencyCode = "USD"; *@
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        
+    </body>
+</html>

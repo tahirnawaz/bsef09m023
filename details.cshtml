@@ -1,0 +1,173 @@
+﻿@{ 
+     
+    Layout = "~/Shared/Layouts/_Layout.cshtml"; 
+     
+    var productID = !UrlData[0].IsEmpty() ? UrlData[0] : "0"; 
+     
+    var db = Database.Open("ProductDataBase");    
+    var sqlSelect = "SELECT * FROM Products WHERE productID = @0"; 
+     
+    var product = db.QuerySingle(sqlSelect, productID); 
+    <p>product.productID</p>
+     
+}
+
+<script>
+PositionX = 100;
+PositionY = 100;
+
+
+defaultWidth  = 500;
+defaultHeight = 500;
+var AutoClose = true;
+
+if (parseInt(navigator.appVersion.charAt(0))>=4){
+var isNN=(navigator.appName=="Netscape")?1:0;
+var isIE=(navigator.appName.indexOf("Microsoft")!=-1)?1:0;}
+var optNN='scrollbars=no,width='+defaultWidth+',height='+defaultHeight+',left='+PositionX+',top='+PositionY;
+var optIE='scrollbars=no,width=150,height=100,left='+PositionX+',top='+PositionY;
+function popImage(imageURL,imageTitle){
+if (isNN){imgWin=window.open('about:blank','',optNN);}
+if (isIE){imgWin=window.open('about:blank','',optIE);}
+with (imgWin.document){
+writeln('<html><head><title>Loading...</title><style>body{margin:0px;}</style>');writeln('<sc'+'ript>');
+writeln('var isNN,isIE;');writeln('if (parseInt(navigator.appVersion.charAt(0))>=4){');
+writeln('isNN=(navigator.appName=="Netscape")?1:0;');writeln('isIE=(navigator.appName.indexOf("Microsoft")!=-1)?1:0;}');
+writeln('function reSizeToImage(){');writeln('if (isIE){');writeln('window.resizeTo(300,300);');
+writeln('width=300-(document.body.clientWidth-document.images[0].width);');
+writeln('height=300-(document.body.clientHeight-document.images[0].height);');
+writeln('window.resizeTo(width,height);}');writeln('if (isNN){');       
+writeln('window.innerWidth=document.images["George"].width;');writeln('window.innerHeight=document.images["George"].height;}}');
+writeln('function doTitle(){document.title="'+imageTitle+'";}');writeln('</sc'+'ript>');
+if (!AutoClose) writeln('</head><body bgcolor=ffffff scroll="no" onload="reSizeToImage();doTitle();self.focus()">')
+else writeln('</head><body bgcolor=ffffff scroll="no" onload="reSizeToImage();doTitle();self.focus()" onblur="self.close()">');
+writeln('<img name="George" src='+imageURL+' style="display:block"></body></html>');
+close();		
+}}
+
+</script>
+
+@if (product == null) 
+{ 
+    <p> 
+        Unable to fetch product details. 
+        Try browsing one of the categories listed to the left. 
+    </p> 
+} 
+else 
+{ 
+    Page.Title = product.title; 
+  <div id="orderForm"> 
+            <form action="/ShopingCart" method="post"> 
+<div class="center_content">
+   	<div class="center_title_bar">@product.title</div>
+    
+    	<div class="prod_box_big">
+        	<div class="top_prod_box_big"></div>
+            <div class="center_prod_box_big">            
+                 
+                 <div class="product_img_big">
+                 @Products.ShowProductImage(productID.ToString())
+                @* <div class="thumbs">
+                 <a href="#" title="header=[Thumb1] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/thumb1.gif" alt="NO" title=""  /></a>
+                 <a href="#" title="header=[Thumb2] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/thumb1.gif" alt="NO" title=""  /></a>
+                 <a href="#" title="header=[Thumb3] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/thumb1.gif" alt="NO" title=""  /></a>
+                 </div>*@
+                 </div>
+                     <div class="details_big_box">
+                         <div class="product_title_big">My Cinema-U3000/DVBT, USB 2.0 TV BOX External, White</div>
+                         <div class="specifications">
+                            Disponibilitate: <span class="blue">In stoc</span><br />
+
+                            Garantie: <span class="blue">24 luni</span><br />
+                            
+                            Tip transport: <span class="blue">Mic</span><br />
+                            
+                            Pretul include <span class="blue">TVA</span><br />
+                         </div>
+                         <div class="prod_price_big"><span class="reduce">$500</span> <span class="price">$@product.price</span></div>
+                         @*Hidden values to store product id and price*@
+                            @Html.Hidden("productID", productID)
+                            @Html.Hidden("price", product.price)
+                         <input type="submit" class="addtocart" value="add to cart">
+                         
+                     </div>                        
+            </div>
+            
+            <div class="bottom_prod_box_big"></div>                                
+        </div>
+    
+    
+ 
+
+ 
+ @*code for similar products for comparing
+ 
+ <div class="center_title_bar">Similar products</div>
+ 
+ 
+      	<div class="prod_box">
+        	<div class="top_prod_box"></div>
+            <div class="center_prod_box">            
+                 <div class="product_title"><a href="details.cshtml">Motorola 156 MX-VL</a></div>
+                 <div class="product_img"><a href="details.cshtml"><img src="~/Shared/Images/laptop.gif" alt="NO" title=""  /></a></div>
+                 <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>                        
+            </div>
+            <div class="bottom_prod_box"></div>             
+            <div class="prod_details_tab">
+            <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/cart.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Specials] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favs.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Gifts] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favorites.gif" alt="NO" title=""  class="left_bt" /></a>           
+            <a href="details.cshtml" class="prod_details">details</a>            
+            </div>                     
+        </div>
+    
+    
+ 
+     	<div class="prod_box">
+        	<div class="top_prod_box"></div>
+            <div class="center_prod_box">            
+                 <div class="product_title"><a href="details.cshtml">Iphone Apple</a></div>
+                 <div class="product_img"><a href="details.cshtml"><img src="/Shared/Images/p4.gif" alt="NO" title="" /></a></div>
+                 <div class="prod_price"><span class="price">270$</span></div>                        
+            </div>
+            <div class="bottom_prod_box"></div>             
+            <div class="prod_details_tab">
+            <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/cart.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Specials] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favs.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Gifts] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favorites.gif" alt="NO" title=""  class="left_bt" /></a>           
+            <a href="details.cshtml" class="prod_details">details</a>             
+            </div>                     
+        </div>
+ 
+     	<div class="prod_box">
+        	<div class="top_prod_box"></div>
+            <div class="center_prod_box">            
+                 <div class="product_title"><a href="details.cshtml">Samsung Webcam</a></div>
+                 <div class="product_img"><a href="details.cshtml"><img src="/Shared/Images/p5.gif" alt="NO" title=""  /></a></div>
+                 <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>                        
+            </div>
+            <div class="bottom_prod_box"></div>             
+            <div class="prod_details_tab">
+            <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/cart.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Specials] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favs.gif" alt="NO" title=""  class="left_bt" /></a>
+            <a href="#" title="header=[Gifts] body=[&nbsp;] fade=[on]"><img src="/Shared/Images/favorites.gif" alt="NO" title=""  class="left_bt" /></a>           
+            <a href="details.cshtml" class="prod_details">details</a>            
+            </div>                     
+        </div> 
+ 
+ 
+ *@
+ 
+    
+    
+   
+   </div><!-- end of center content -->
+   </form>
+      </div>
+}
+   
+  
+
+   
+  
